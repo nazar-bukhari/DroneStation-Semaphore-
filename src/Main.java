@@ -7,11 +7,13 @@ import java.util.concurrent.Semaphore;
  */
 public class Main {
 
+    static final Semaphore semaphore = new Semaphore(1);
+    static List<Drone> droneList;
+
     public static void main(String args[]){
 
-        List<Drone> droneList = new ArrayList();
-        Semaphore semaphore = new Semaphore(1);
         Drone d1,d2,d3,d4,d5,d6,d7,d8,d9,d10;
+        droneList = new ArrayList();;
 
         System.out.println(" ****** Drones Are initializing **********");
 
@@ -21,7 +23,7 @@ public class Main {
         d4  =  new Drone( "Drone 4",2000, DroneState.ATJOB.getState());
         d5  =  new Drone( "Drone 5",4000, DroneState.ATJOB.getState());
         d6  =  new Drone( "Drone 6",3000, DroneState.ATJOB.getState());
-        d7  =  new Drone( "Drone 7",2000, DroneState.ATJOB.getState());
+        d7  =  new Drone( "Drone 7",2000, DroneState.QUEUE.getState());
         d8  =  new Drone( "Drone 8",2000, DroneState.ATJOB.getState());
         d9  =  new Drone( "Drone 9",3000, DroneState.ATJOB.getState());
         d10 =  new Drone( "Drone 10",3000, DroneState.ATJOB.getState());
@@ -37,14 +39,14 @@ public class Main {
         droneList.add(d9);
         droneList.add(d10);
 
-        try{
-            Thread.sleep(2000);
-            System.out.println(" ****** Drone Initialization Done ********");
-        }catch(Exception ex){
-            ex.printStackTrace();
-        }
+//        try{
+//            Thread.sleep(2000);
+//        }catch(Exception ex){
+//            ex.printStackTrace();
+//        }
 
-        ChargingStation chargingStation = new ChargingStation(droneList,semaphore);
-        chargingStation.start();
+        new ChargingStation().run();
+//        ChargingStation chargingStation = new ChargingStation(droneList);
+//        chargingStation.start();
     }
 }

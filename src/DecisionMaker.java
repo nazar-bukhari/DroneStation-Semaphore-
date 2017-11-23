@@ -6,12 +6,12 @@ import java.util.concurrent.Semaphore;
 public class DecisionMaker extends Thread {
 
     private Drone drone;
-    private Semaphore semaphore;
+    private Drone lock;
 
-    public DecisionMaker(Drone drone, Semaphore semaphore) {
+    public DecisionMaker(Drone drone,Drone lock) {
 
         this.drone = drone;
-        this.semaphore =semaphore;
+        this.lock = lock;
     }
 
     @Override
@@ -20,10 +20,13 @@ public class DecisionMaker extends Thread {
         if(drone.getDroneState().equals(DroneState.Charging.getState())){
 
             try {
-                semaphore.acquire();
-                System.out.println(drone.getName()+" is Charging.It will take "+drone.getRechargeTime()/1000+" sec to recharge fully");
+                synchronized (lock) {
+                    lock.wait();
+                }
+                Main.semaphore.acquire();
+                System.out.println(drone.getName() + " is Charging.It will take " + drone.getRechargeTime() / 1000 + " sec to recharge fully");
                 Thread.sleep(drone.getRechargeTime());
-                semaphore.release();
+                Main.semaphore.release();
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }

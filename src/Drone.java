@@ -7,6 +7,9 @@ public class Drone {
     private long rechargeTime;
     private String droneState;
 
+    public Drone() {
+    }
+
     public Drone(String name, long rechargeTime, String droneState) {
         this.name = name;
         this.rechargeTime = rechargeTime;
