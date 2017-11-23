@@ -17,16 +17,16 @@ public class Main {
 
         System.out.println(" ****** Drones Are initializing **********");
 
-        d1  =	new Drone( "Drone 1",2000, DroneState.Charging.getState());
-        d2  =  new Drone( "Drone 2",3000, DroneState.QUEUE.getState());
-        d3  =  new Drone( "Drone 3",3000, DroneState.QUEUE.getState());
-        d4  =  new Drone( "Drone 4",2000, DroneState.ATJOB.getState());
-        d5  =  new Drone( "Drone 5",4000, DroneState.ATJOB.getState());
-        d6  =  new Drone( "Drone 6",3000, DroneState.ATJOB.getState());
-        d7  =  new Drone( "Drone 7",2000, DroneState.QUEUE.getState());
-        d8  =  new Drone( "Drone 8",2000, DroneState.ATJOB.getState());
-        d9  =  new Drone( "Drone 9",3000, DroneState.ATJOB.getState());
-        d10 =  new Drone( "Drone 10",3000, DroneState.ATJOB.getState());
+        d1  =	new Drone( "Drone 1",2000, DroneState.ATJOB.getState(),7000);
+        d2  =  new Drone( "Drone 2",3000, DroneState.ATJOB.getState(),7000);
+        d3  =  new Drone( "Drone 3",3000, DroneState.ATJOB.getState(),7000);
+        d4  =  new Drone( "Drone 4",2000, DroneState.ATJOB.getState(),7000);
+        d5  =  new Drone( "Drone 5",4000, DroneState.ATJOB.getState(),7000);
+        d6  =  new Drone( "Drone 6",3000, DroneState.ATJOB.getState(),7000);
+        d7  =  new Drone( "Drone 7",2000, DroneState.QUEUE.getState(),7000);
+        d8  =  new Drone( "Drone 8",2000, DroneState.QUEUE.getState(),7000);
+        d9  =  new Drone( "Drone 9",3000, DroneState.QUEUE.getState(),7000);
+        d10 =  new Drone( "Drone 10",3000, DroneState.QUEUE.getState(),7000);
 
         droneList.add(d1);
         droneList.add(d2);

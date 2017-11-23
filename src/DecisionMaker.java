@@ -8,7 +8,7 @@ public class DecisionMaker extends Thread {
     private Drone drone;
     private Drone lock;
 
-    public DecisionMaker(Drone drone,Drone lock) {
+    public DecisionMaker(Drone drone, Drone lock) {
 
         this.drone = drone;
         this.lock = lock;
@@ -17,20 +17,40 @@ public class DecisionMaker extends Thread {
     @Override
     public void run() {
 
-        if(drone.getDroneState().equals(DroneState.Charging.getState())){
+        synchronized (lock) {
+            try {
+                lock.wait();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+
+        if (drone.getDroneState().equals(DroneState.Charging.getState()) ||
+                drone.getDroneState().equals(DroneState.QUEUE.getState())) {
 
             try {
-                synchronized (lock) {
-                    lock.wait();
-                }
+
                 Main.semaphore.acquire();
-                System.out.println(drone.getName() + " is Charging.It will take " + drone.getRechargeTime() / 1000 + " sec to recharge fully");
+                System.out.println();
+
+                System.out.println(drone.getName() + " starts charging.It will take " + drone.getRechargeTime() / 1000 + " sec to Charge");
                 Thread.sleep(drone.getRechargeTime());
+                System.out.println(drone.getName()+" has charged fully,going back to work." +
+                        "Will come back at station after: "+drone.getWorkingHour()/1000+" seconds");
+                new WorkFloor(drone).start();
+
                 Main.semaphore.release();
+
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
 
         }
+
+        else if(drone.getDroneState().equals(DroneState.ATJOB.getState())){
+
+            new WorkFloor(drone).start();
+        }
+
     }
 }

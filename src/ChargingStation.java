@@ -22,7 +22,7 @@ public class ChargingStation extends Thread {
 
         while (true) {
 
-
+            System.out.print("Main droneList: "+Main.droneList.size());
             for (Drone drone : Main.droneList) {
 
                 System.out.print("Current DroneState of: " + drone.toString() + "\n");
@@ -37,6 +37,12 @@ public class ChargingStation extends Thread {
                 lock.notifyAll();
             }
             Main.droneList.clear();
+
+            try {
+                Thread.sleep(3000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         }
     }
 }
