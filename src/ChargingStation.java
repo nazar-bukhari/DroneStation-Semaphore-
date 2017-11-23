@@ -36,7 +36,7 @@ public class ChargingStation extends Thread {
             synchronized (lock) {
                 lock.notifyAll();
             }
-            Main.droneList.clear();
+//            Main.droneList.clear();
 
             try {
                 Thread.sleep(3000);

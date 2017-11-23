@@ -49,7 +49,12 @@ public class DecisionMaker extends Thread {
 
         else if(drone.getDroneState().equals(DroneState.ATJOB.getState())){
 
-            new WorkFloor(drone).start();
+            WorkFloor workFloor = new WorkFloor(drone);
+
+            if(!workFloor.isAlive()){
+                System.out.println(drone.getName()+" is Staring");
+                new WorkFloor(drone).start();
+            }
         }
 
     }

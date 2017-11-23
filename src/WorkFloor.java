@@ -22,7 +22,7 @@ public class WorkFloor extends Thread {
             }else {
                 drone.setDroneState(DroneState.Charging.getState());
             }
-            Main.droneList.add(drone);
+//            Main.droneList.add(drone);
         }catch(Exception ex){
             ex.printStackTrace();
         }
