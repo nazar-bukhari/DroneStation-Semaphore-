@@ -1,3 +1,4 @@
+import java.util.Date;
 import java.util.concurrent.Semaphore;
 
 /**
@@ -30,16 +31,17 @@ public class DecisionMaker extends Thread {
 
             try {
 
-                Main.semaphore.acquire();
-                System.out.println();
+                    Main.semaphore.acquire();
 
-                System.out.println(drone.getName() + " starts charging.It will take " + drone.getRechargeTime() / 1000 + " sec to Charge");
-                Thread.sleep(drone.getRechargeTime());
-                System.out.println(drone.getName()+" has charged fully,going back to work." +
-                        "Will come back at station after: "+drone.getWorkingHour()/1000+" seconds");
-                new WorkFloor(drone).start();
+                    System.out.println(new Date()+" "+drone.getName() + " starts charging.It will take " + drone.getRechargeTime() / 1000 + " sec to Charge");
+                    Thread.sleep(drone.getRechargeTime());
+                    System.out.println(new Date()+" "+drone.getName()+" has charged fully,going back to work." +
+                            "Will come back at station after: "+drone.getWorkingHour()/1000+" seconds"+" Moving speed: "+drone.getDistance()/drone.getFlightTime()+" meter/second");
 
-                Main.semaphore.release();
+                    drone.setDroneState(DroneState.ATJOB.getState());
+                    new WorkFloor(drone).start();
+
+                    Main.semaphore.release();
 
             } catch (InterruptedException e) {
                 e.printStackTrace();
@@ -52,7 +54,6 @@ public class DecisionMaker extends Thread {
             WorkFloor workFloor = new WorkFloor(drone);
 
             if(!workFloor.isAlive()){
-                System.out.println(drone.getName()+" is Staring");
                 new WorkFloor(drone).start();
             }
         }

@@ -16,13 +16,12 @@ public class WorkFloor extends Thread {
 
         try{
 
-            Thread.sleep(droneWorkHour);
+            Thread.sleep(droneWorkHour); //Assume Drone is working now
             if(Main.semaphore.hasQueuedThreads()){
                 drone.setDroneState(DroneState.QUEUE.getState());
             }else {
                 drone.setDroneState(DroneState.Charging.getState());
             }
-//            Main.droneList.add(drone);
         }catch(Exception ex){
             ex.printStackTrace();
         }

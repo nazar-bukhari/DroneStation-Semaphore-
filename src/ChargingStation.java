@@ -8,13 +8,6 @@ import java.util.concurrent.Semaphore;
  */
 public class ChargingStation extends Thread {
 
-//    private List<Drone> droneList;
-
-//    public ChargingStation(List<Drone> droneList) {
-//
-//        this.droneList = droneList;
-//    }
-
     @Override
     public void run() {
 
@@ -22,10 +15,9 @@ public class ChargingStation extends Thread {
 
         while (true) {
 
-            System.out.print("Main droneList: "+Main.droneList.size());
             for (Drone drone : Main.droneList) {
 
-                System.out.print("Current DroneState of: " + drone.toString() + "\n");
+//                System.out.print("Current DroneState of: " + drone.toString() + "\n");
                 try {
                     Thread.sleep(1000);
                     new DecisionMaker(drone, lock).start();
@@ -36,7 +28,6 @@ public class ChargingStation extends Thread {
             synchronized (lock) {
                 lock.notifyAll();
             }
-//            Main.droneList.clear();
 
             try {
                 Thread.sleep(3000);

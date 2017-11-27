@@ -7,15 +7,19 @@ public class Drone {
     private long rechargeTime;
     private String droneState;
     private long workingHour;
+    private long distance;
+    private long flightTime;
 
     public Drone() {
     }
 
-    public Drone(String name, long rechargeTime, String droneState, long workingHour) {
+    public Drone(String name, long rechargeTime, String droneState, long workingHour, long distance, long flightTime) {
         this.name = name;
         this.rechargeTime = rechargeTime;
         this.droneState = droneState;
         this.workingHour = workingHour;
+        this.distance = distance;
+        this.flightTime = flightTime;
     }
 
     public String getName() {
@@ -48,6 +52,23 @@ public class Drone {
 
     public void setWorkingHour(long workingHour) {
         this.workingHour = workingHour;
+    }
+
+
+    public long getDistance() {
+        return distance;
+    }
+
+    public void setDistance(long distance) {
+        this.distance = distance;
+    }
+
+    public long getFlightTime() {
+        return flightTime;
+    }
+
+    public void setFlightTime(long flightTime) {
+        this.flightTime = flightTime;
     }
 
     @Override
